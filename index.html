@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CPE102 — Engineering Exploration</title>
+<meta name="description" content="CPE102 Section C Inter A semester viewbook at KMUTT">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+<nav class="topnav"><div class="nav-inner">
+<a class="course-badge" href="#overview">CPE102 <span>// SEC C</span></a>
+<div class="nav-links"><a href="#overview">Overview</a><a href="#archive">16-Week Archive</a><a href="#midterm">Midterm Robot</a><a href="#final">Final Project</a><a href="#team">Attitude & Team</a></div>
+<div class="progress-pill"><i data-lucide="circle-check"></i><span id="nav-progress">Reviewed: 0 / 48</span></div>
+</div></nav>
+<main>
+<section id="overview" class="hero wrap">
+<div class="hero-left glass">
+<div class="eyebrow"><span class="live-dot"></span>KMUTT • COMPUTER ENGINEERING • SEMESTER 1/2026 • SECTION C (INTER A)</div>
+<h1><span>Engineering</span><br>Exploration</h1>
+<p class="hero-copy">A week-by-week engineering field guide, interactive archive, and reflective viewbook crafted by four CPE freshmen for incoming KMUTT students.</p>
+<div class="stats"><div><strong>16</strong><span>Weeks</span></div><div><strong>2</strong><span>Major Projects</span></div><div><strong>4</strong><span>Members</span></div><div><strong>CPE 1114</strong><span>Room</span></div></div>
+<div class="grading"><div class="grading-head"><span>Course grading</span><b>100%</b></div><div class="grade-track"><span style="width:5%;background:#64748B" title="Attendance 5%"></span><span style="width:10%;background:#22D3EE" title="Labs & Quizzes 10%"></span><span style="width:15%;background:#8B5CF6" title="Viewbook 15%"></span><span style="width:20%;background:#EC4899" title="Midterm Robot 20%"></span><span style="width:30%;background:#06B6D4" title="Final Project 30%"></span><span style="width:20%;background:#F59E0B" title="Final Exam 20%"></span></div><div class="grade-labels"><span>Attendance 5%</span><span>Labs 10%</span><span>Viewbook 15%</span><span>Midterm 20%</span><span>Final 30%</span><span>Exam 20%</span></div></div>
+<a class="primary-btn" href="#archive">Explore 16-Week Archive <i data-lucide="arrow-down"></i></a>
+</div>
+<div id="photo-collage" class="collage"></div>
+</section>
+<section id="archive" class="section wrap"><div class="section-head"><div><span class="kicker">SEMESTER INDEX</span><h2>16-Week Archive</h2></div><div id="filter-tabs" class="filter-tabs"></div></div><div id="week-grid" class="week-grid"></div></section>
+<section id="midterm" class="section wrap"><div class="section-head"><div><span class="kicker">PROJECT 01 • MIDTERM</span><h2>Gemstone Color Sorting Robots</h2></div><div class="phase-tag">CPE Rare Earth Mineral Yard</div></div>
+<div class="project-grid"><div class="project-main glass"><div class="challenge-line"><span>5-MIN CHALLENGE</span><span>6 GEMSTONES</span></div><h3>Manual or autonomous.<br><em>One arena. One score.</em></h3><div id="mode-tabs" class="mode-tabs"><button class="active" data-mode="manual"><b>01</b> Manual Mode <small>1X — Gesture</small></button><button data-mode="auto"><b>02</b> Autonomous <small>5X — Vision</small></button></div><div id="mode-panel" class="pipeline"></div></div><div class="fabrication glass"><div class="mini-card"><span>MECHANICAL</span><h3>2D Acrylic</h3><p>Laser-cut chassis, mounting plates, and arena-ready geometry.</p></div><div class="mini-card"><span>PROTOTYPING</span><h3>3D Printed</h3><p>Functional gripper parts refined across six engineering drafts.</p></div></div></div><div id="robot-gallery" class="robot-gallery"></div></section>
+<section id="final" class="section wrap"><div class="section-head"><div><span class="kicker">PROJECT 02 • FINAL</span><h2>KMUTT AR Campus Map</h2></div><span class="phase-tag violet">AR × Navigation × Campus</span></div><div class="final-grid"><div class="final-info glass"><span class="kicker">THE IDEA</span><p>An augmented reality navigation map for the KMUTT campus, helping visitors and students find destinations effortlessly—blending Google Live View directional AR overlays with the KMUTT Virtual Campus Tour for real-time destination previews.</p><div class="tech-pills"><span>AR Navigation</span><span>Live View</span><span>Campus Tour</span><span>Wayfinding</span></div></div><div class="canva-wrap glass"><div class="canva-frame"><iframe loading="lazy" src="https://www.canva.com/design/DAHayoCBCbo/J2Kjn13w3H77zZJSfVat8A/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe></div></div></div></section>
+<section id="team" class="section wrap"><div class="section-head"><div><span class="kicker">ATTITUDE & TEAM</span><h2>The CPE102 Crew</h2></div></div><div id="team-grid" class="team-grid"></div></section>
+</main>
+<div id="modal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><article class="modal-card glass"><button class="modal-close" aria-label="Close"><i data-lucide="x"></i></button><div id="modal-content"></div></article></div>
+<script src="data.js"></script><script src="app.js"></script>
+</body></html>
