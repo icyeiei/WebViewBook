@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-22T22:54:46+00:00",
+  "title": "Design System: CPE102 Viewbook",
+  "extensions": {
+    "colorMeta": {
+      "house-red": {
+        "role": "secondary",
+        "displayName": "Signal Red",
+        "canonical": "#D7352A",
+        "tonalRamp": [
+          "#351917",
+          "#642722",
+          "#992F28",
+          "#D33328",
+          "#D7675F",
+          "#DC9994",
+          "#E6C6C4",
+          "#F6EFEE"
+        ]
+      },
+      "house-blue": {
+        "role": "secondary",
+        "displayName": "Track Blue",
+        "canonical": "#2563EB",
+        "tonalRamp": [
+          "#141F39",
+          "#1B346C",
+          "#1C47A5",
+          "#1657E5",
+          "#5280E3",
+          "#8DA8E3",
+          "#C0CDEA",
+          "#EDF0F7"
+        ]
+      },
+      "house-green": {
+        "role": "primary",
+        "displayName": "Programme Green",
+        "canonical": "#1B7F36",
+        "tonalRamp": [
+          "#183520",
+          "#246335",
+          "#2B9648",
+          "#2DCF58",
+          "#62D481",
+          "#96DAA8",
+          "#C5E5CE",
+          "#EEF6F0"
+        ]
+      },
+      "house-yellow": {
+        "role": "secondary",
+        "displayName": "Medal Yellow",
+        "canonical": "#F5C518",
+        "tonalRamp": [
+          "#3B3212",
+          "#705C17",
+          "#AC8B15",
+          "#F0BE0B",
+          "#EBC84B",
+          "#E8D388",
+          "#ECE2BE",
+          "#F8F5ED"
+        ]
+      },
+      "house-orange": {
+        "role": "secondary",
+        "displayName": "Relay Orange",
+        "canonical": "#F57C1F",
+        "tonalRamp": [
+          "#3B2412",
+          "#703E17",
+          "#AC5715",
+          "#F06F0C",
+          "#EB904B",
+          "#E8B288",
+          "#ECD2BE",
+          "#F8F2ED"
+        ]
+      },
+      "house-gray": {
+        "role": "secondary",
+        "displayName": "Bench Gray",
+        "canonical": "#6B6F78",
+        "tonalRamp": [
+          "#252628",
+          "#414246",
+          "#5C5F65",
+          "#777B85",
+          "#9699A0",
+          "#B5B7BB",
+          "#D4D5D7",
+          "#F2F2F3"
+        ]
+      },
+      "house-red-night": {
+        "role": "secondary",
+        "displayName": "Signal Red (dark theme)",
+        "canonical": "#C9352B",
+        "tonalRamp": [
+          "#361816",
+          "#672520",
+          "#9D2C24",
+          "#D82F23",
+          "#DA645B",
+          "#DE9792",
+          "#E7C5C3",
+          "#F7EFEE"
+        ]
+      },
+      "house-blue-night": {
+        "role": "secondary",
+        "displayName": "Track Blue (dark theme)",
+        "canonical": "#2F64DB",
+        "tonalRamp": [
+          "#131F39",
+          "#1A346D",
+          "#1A46A7",
+          "#1356E9",
+          "#507FE6",
+          "#8BA7E5",
+          "#C0CDEB",
+          "#EDF0F7"
+        ]
+      },
+      "house-green-night": {
+        "role": "primary",
+        "displayName": "Programme Green (dark theme)",
+        "canonical": "#1E8541",
+        "tonalRamp": [
+          "#183422",
+          "#25613B",
+          "#2D9452",
+          "#30CB68",
+          "#65D18C",
+          "#98D8AF",
+          "#C6E5D1",
+          "#EFF6F1"
+        ]
+      },
+      "house-yellow-night": {
+        "role": "secondary",
+        "displayName": "Medal Yellow (dark theme)",
+        "canonical": "#F2C230",
+        "tonalRamp": [
+          "#3A3013",
+          "#6E5919",
+          "#A98518",
+          "#ECB510",
+          "#E8C24E",
+          "#E6CF8A",
+          "#EBE0BF",
+          "#F7F5ED"
+        ]
+      },
+      "house-orange-night": {
+        "role": "secondary",
+        "displayName": "Relay Orange (dark theme)",
+        "canonical": "#F2852F",
+        "tonalRamp": [
+          "#3A2413",
+          "#6E3E19",
+          "#A95818",
+          "#EC7110",
+          "#E8924E",
+          "#E6B38A",
+          "#EBD3BF",
+          "#F7F2ED"
+        ]
+      },
+      "house-gray-night": {
+        "role": "secondary",
+        "displayName": "Bench Gray (dark theme)",
+        "canonical": "#4F535C",
+        "tonalRamp": [
+          "#252628",
+          "#404247",
+          "#5A5E67",
+          "#747A87",
+          "#9498A1",
+          "#B4B6BC",
+          "#D3D4D7",
+          "#F2F2F3"
+        ]
+      },
+      "on-house-light": {
+        "role": "neutral",
+        "displayName": "On-House White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7E7E7E",
+          "#9B9B9B",
+          "#B8B8B8",
+          "#D5D5D5",
+          "#F2F2F2"
+        ]
+      },
+      "on-house-dark": {
+        "role": "neutral",
+        "displayName": "On-House Ink",
+        "canonical": "#15161A",
+        "tonalRamp": [
+          "#242529",
+          "#3E4049",
+          "#585B69",
+          "#70768B",
+          "#9295A4",
+          "#B2B5BE",
+          "#D2D4D8",
+          "#F2F2F3"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7E7E7E",
+          "#9B9B9B",
+          "#B8B8B8",
+          "#D5D5D5",
+          "#F2F2F2"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Programme Panel",
+        "canonical": "#F1F1EE",
+        "tonalRamp": [
+          "#282824",
+          "#48483F",
+          "#696959",
+          "#8A8A72",
+          "#A3A392",
+          "#BDBDB3",
+          "#D8D8D3",
+          "#F3F3F2"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Programme Ink",
+        "canonical": "#15161A",
+        "tonalRamp": [
+          "#242529",
+          "#3E4049",
+          "#585B69",
+          "#70768B",
+          "#9295A4",
+          "#B2B5BE",
+          "#D2D4D8",
+          "#F2F2F3"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#4A4D55",
+        "tonalRamp": [
+          "#252628",
+          "#404247",
+          "#5B5E66",
+          "#757A86",
+          "#9598A1",
+          "#B4B6BC",
+          "#D3D4D7",
+          "#F2F2F3"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#DCDCD7",
+        "tonalRamp": [
+          "#282825",
+          "#474740",
+          "#66665B",
+          "#868675",
+          "#A1A195",
+          "#BBBBB4",
+          "#D7D7D3",
+          "#F3F3F2"
+        ]
+      },
+      "ground-night": {
+        "role": "neutral",
+        "displayName": "Paper White (dark theme)",
+        "canonical": "#101114",
+        "tonalRamp": [
+          "#242529",
+          "#3E4149",
+          "#575C6A",
+          "#70778C",
+          "#9196A5",
+          "#B2B5BE",
+          "#D2D4D8",
+          "#F2F2F3"
+        ]
+      },
+      "panel-night": {
+        "role": "neutral",
+        "displayName": "Programme Panel (dark theme)",
+        "canonical": "#1B1C21",
+        "tonalRamp": [
+          "#242528",
+          "#3F4048",
+          "#585B69",
+          "#71758A",
+          "#9295A4",
+          "#B3B4BD",
+          "#D3D3D8",
+          "#F2F2F3"
+        ]
+      },
+      "ink-night": {
+        "role": "neutral",
+        "displayName": "Programme Ink (dark theme)",
+        "canonical": "#F2F2EF",
+        "tonalRamp": [
+          "#292924",
+          "#48483E",
+          "#696958",
+          "#8B8B71",
+          "#A4A492",
+          "#BDBDB3",
+          "#D8D8D3",
+          "#F3F3F2"
+        ]
+      },
+      "ink-soft-night": {
+        "role": "neutral",
+        "displayName": "Soft Ink (dark theme)",
+        "canonical": "#ABADB4",
+        "tonalRamp": [
+          "#252628",
+          "#414246",
+          "#5C5E65",
+          "#777A85",
+          "#9698A0",
+          "#B5B6BB",
+          "#D4D4D7",
+          "#F2F2F3"
+        ]
+      },
+      "rule-night": {
+        "role": "neutral",
+        "displayName": "Hairline (dark theme)",
+        "canonical": "#2C2E35",
+        "tonalRamp": [
+          "#242528",
+          "#3F4148",
+          "#595C68",
+          "#727789",
+          "#9396A3",
+          "#B3B5BD",
+          "#D3D4D7",
+          "#F2F2F3"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Cover h1 only."
+      },
+      "numeral": {
+        "displayName": "Scoreboard Numeral",
+        "purpose": "Stat tiles, week number chips, sheet numeral, grading total."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section heads, sheet and project headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Week titles, reflection subheads, member names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text for reflections and previews, 62-68ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Markers, captions, dates, imprints; often uppercase."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default easing for fills, board recolour, arrow nudge and image scale."
+      },
+      {
+        "name": "row-fill",
+        "value": "0.35s",
+        "purpose": "Week row house fill on hover/focus."
+      },
+      {
+        "name": "board-recolour",
+        "value": "0.4s",
+        "purpose": "Section rule and row dividers taking the active filter's house."
+      },
+      {
+        "name": "sheet-rise",
+        "value": "0.42s",
+        "purpose": "Sheet rises from the clicked row: translateY(--from-y) scale(0.94) to none, 0.42s ease-out, transform/opacity only; iframes load after it settles."
+      },
+      {
+        "name": "theme-swap",
+        "value": "0.3s",
+        "purpose": "Background and text colour transition when the theme toggles; also root view-transition crossfade."
+      },
+      {
+        "name": "image-scale",
+        "value": "0.6s",
+        "purpose": "Thumbnail and gallery images scale to 1.04 inside their clip on hover."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "All transitions and animations collapse under prefers-reduced-motion; view transitions are skipped."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1100px"
+      },
+      {
+        "name": "tablet",
+        "value": "860px"
+      },
+      {
+        "name": "phone",
+        "value": "560px"
+      }
+    ],
+    "themes": {
+      "mechanism": "html[data-theme=light|dark], saved to localStorage key cpe102-theme, defaulting to prefers-color-scheme; applied before first paint."
+    }
+  },
+  "components": [
+    {
+      "name": "House Tile",
+      "kind": "card",
+      "refersTo": "tile-house",
+      "description": "Flat full-strength house field; the base block of the bento and project grids.",
+      "html": "<div class=\"ds-tile\"><strong class=\"ds-tile-num\">16</strong><span class=\"ds-tile-label\">Weeks</span></div>",
+      "css": ".ds-tile{display:flex;flex-direction:column;justify-content:flex-end;width:220px;height:200px;padding:24px;border-radius:4px;background:#D7352A;color:#FFFFFF;font-family:Archivo,'Arial Narrow',sans-serif}.ds-tile-num{font-stretch:125%;font-weight:900;font-size:4.5rem;line-height:.9;letter-spacing:-.02em}.ds-tile-label{margin-top:8px;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}"
+    },
+    {
+      "name": "CTA Tile",
+      "kind": "button",
+      "refersTo": "tile-cta",
+      "description": "Inverted ink tile that sends the reader to the archive; arrow drops on hover.",
+      "html": "<a class=\"ds-cta\" href=\"#\">Explore 16-Week Archive <svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/></svg></a>",
+      "css": ".ds-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;width:360px;padding:24px;border-radius:4px;background:#15161A;color:#FFFFFF;font-family:Archivo,'Arial Narrow',sans-serif;font-weight:800;font-size:1.4rem;text-decoration:none}.ds-cta svg{transition:transform .4s cubic-bezier(.16,1,.3,1)}.ds-cta:hover svg{transform:translateY(4px)}.ds-cta:focus-visible{outline:3px solid #2563EB;outline-offset:3px}"
+    },
+    {
+      "name": "Week Row",
+      "kind": "custom",
+      "refersTo": "week-number",
+      "description": "Archive entry; fills with its house colour on hover or focus and the number chip inverts.",
+      "html": "<button class=\"ds-week\"><span class=\"ds-week-no\">03<small>WEEK</small></span><span class=\"ds-week-main\"><span class=\"ds-week-date\">AUG 21</span><span class=\"ds-week-title\">Design thinking</span><span class=\"ds-week-preview\">What the team learned this week.</span></span></button>",
+      "css": ".ds-week{--house:#2563EB;--on-house:#FFFFFF;display:grid;grid-template-columns:112px 1fr;column-gap:28px;width:560px;padding:18px 16px;border:0;border-bottom:2px solid #DCDCD7;border-radius:4px;background:transparent;color:#15161A;text-align:left;cursor:pointer;transition:background-color .35s cubic-bezier(.16,1,.3,1),color .35s cubic-bezier(.16,1,.3,1)}.ds-week-no{display:flex;flex-direction:column;justify-content:space-between;aspect-ratio:1;padding:12px 14px;border-radius:4px;background:var(--house);color:var(--on-house);font-family:Archivo,'Arial Narrow',sans-serif;font-stretch:125%;font-weight:900;font-size:2.6rem;line-height:.9}.ds-week-no small{font-stretch:100%;font-weight:700;font-size:.7rem;letter-spacing:.1em}.ds-week-main{display:flex;flex-direction:column;gap:4px}.ds-week-date{color:#4A4D55;font-family:Archivo,sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.06em}.ds-week-title{font-family:Archivo,sans-serif;font-stretch:105%;font-weight:800;font-size:1.6rem;line-height:1.1}.ds-week-preview{color:#4A4D55;font-family:'Source Sans 3',sans-serif}.ds-week:hover,.ds-week:focus-visible{background:var(--house);color:var(--on-house)}.ds-week:hover .ds-week-no,.ds-week:focus-visible .ds-week-no{background:var(--on-house);color:var(--house)}.ds-week:hover :is(.ds-week-date,.ds-week-preview),.ds-week:focus-visible :is(.ds-week-date,.ds-week-preview){color:inherit}.ds-week:focus-visible{outline:3px solid #2563EB;outline-offset:3px}"
+    },
+    {
+      "name": "Filter Button",
+      "kind": "chip",
+      "refersTo": "filter-button",
+      "description": "Archive filter that owns a house: outlined at rest, solid when pressed.",
+      "html": "<div class=\"ds-filters\"><button class=\"ds-filter\" style=\"--house:#6B6F78;--on-house:#FFFFFF\" aria-pressed=\"true\">All Weeks (16)</button><button class=\"ds-filter\" style=\"--house:#2563EB;--on-house:#FFFFFF\" aria-pressed=\"false\">With Interactive Media</button><button class=\"ds-filter\" style=\"--house:#1B7F36;--on-house:#FFFFFF\" aria-pressed=\"false\">Midterm Phase</button></div>",
+      "css": ".ds-filters{display:flex;flex-wrap:wrap;gap:8px}.ds-filter{padding:9px 16px;border:2px solid var(--house);border-radius:2px;background:transparent;color:#15161A;font-family:Archivo,'Arial Narrow',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:background-color .3s cubic-bezier(.16,1,.3,1),color .3s cubic-bezier(.16,1,.3,1)}.ds-filter:hover{background:#F1F1EE}.ds-filter[aria-pressed=true]{background:var(--house);color:var(--on-house)}.ds-filter:focus-visible{outline:3px solid #2563EB;outline-offset:3px}"
+    },
+    {
+      "name": "Marker",
+      "kind": "chip",
+      "refersTo": "marker",
+      "description": "Square label placed after a section heading.",
+      "html": "<span class=\"ds-marker\">PROJECT 01 • MIDTERM</span>",
+      "css": ".ds-marker{display:inline-block;padding:6px 12px;border-radius:2px;background:#1B7F36;color:#FFFFFF;font-family:Archivo,'Arial Narrow',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Hairline-outlined square tag for week topics and idea keywords.",
+      "html": "<span class=\"ds-tag\">Arduino</span> <span class=\"ds-tag\">Sensors</span>",
+      "css": ".ds-tag{display:inline-block;padding:3px 10px;border:1px solid #DCDCD7;border-radius:2px;color:#15161A;font-family:'Source Sans 3',sans-serif;font-size:.85rem}"
+    },
+    {
+      "name": "Masthead",
+      "kind": "nav",
+      "refersTo": "icon-button",
+      "description": "Sticky programme masthead: wordmark, six house squares, links, circular theme toggle.",
+      "html": "<header class=\"ds-mast\"><a class=\"ds-word\" href=\"#\">CPE102 <span>// SEC C</span></a><span class=\"ds-strip\"><i style=\"background:#D7352A\"></i><i style=\"background:#2563EB\"></i><i style=\"background:#1B7F36\"></i><i style=\"background:#F5C518\"></i><i style=\"background:#F57C1F\"></i><i style=\"background:#6B6F78\"></i></span><nav class=\"ds-nav\"><a href=\"#\">Overview</a><a href=\"#\">16-Week Archive</a><a href=\"#\">Team</a></nav><button class=\"ds-toggle\" aria-label=\"Switch colour theme\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/></svg></button></header>",
+      "css": ".ds-mast{display:flex;align-items:center;gap:24px;height:64px;padding:0 24px;background:#FFFFFF;border-bottom:1px solid #DCDCD7;color:#15161A}.ds-word{font-family:Archivo,'Arial Narrow',sans-serif;font-stretch:125%;font-weight:900;font-size:1.25rem;text-decoration:none;color:inherit}.ds-word span{font-weight:600;color:#4A4D55}.ds-strip{display:flex;gap:3px}.ds-strip i{display:block;width:12px;height:12px;border-radius:2px}.ds-nav{display:flex;gap:22px;margin-left:auto;font-family:Archivo,sans-serif;font-weight:600;font-size:.9rem}.ds-nav a{padding:6px 0;border-bottom:2px solid transparent;color:inherit;text-decoration:none}.ds-nav a:hover{border-bottom-color:currentColor}.ds-toggle{display:grid;place-items:center;width:40px;height:40px;border:1px solid #DCDCD7;border-radius:50%;background:#F1F1EE;color:inherit;cursor:pointer}.ds-toggle:hover{border-color:#15161A}.ds-toggle:focus-visible,.ds-nav a:focus-visible{outline:3px solid #2563EB;outline-offset:3px}"
+    },
+    {
+      "name": "Doc Link",
+      "kind": "button",
+      "refersTo": "doc-link",
+      "description": "Panel-filled resource link with stroke icons; border turns ink on hover.",
+      "html": "<a class=\"ds-doc\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/></svg><span>Era-One Progress Report</span><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a>",
+      "css": ".ds-doc{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid #DCDCD7;border-radius:4px;background:#F1F1EE;color:#15161A;font-family:Archivo,'Arial Narrow',sans-serif;font-weight:700;text-decoration:none}.ds-doc:hover{border-color:#15161A}.ds-doc:focus-visible{outline:3px solid #2563EB;outline-offset:3px}"
+    },
+    {
+      "name": "Member Card",
+      "kind": "card",
+      "refersTo": "tile-house",
+      "description": "House-coloured member tile: portrait, name, role, ID.",
+      "html": "<article class=\"ds-member\"><div class=\"ds-portrait\"></div><div class=\"ds-member-info\"><h3>Nyan</h3><p>Hardware lead</p><small>ID 0000</small></div></article>",
+      "css": ".ds-member{width:240px;overflow:hidden;border-radius:4px;background:#F57C1F;color:#15161A}.ds-portrait{aspect-ratio:4/5;background:#F1F1EE}.ds-member-info{padding:16px 18px 20px;font-family:'Source Sans 3',sans-serif}.ds-member-info h3{margin:4px 0 2px;font-family:Archivo,'Arial Narrow',sans-serif;font-stretch:118%;font-weight:900;font-size:2rem}.ds-member-info p{margin:0}.ds-member-info small{display:inline-block;margin-top:10px;font-family:Archivo,sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Colour-House Programme",
+    "overview": "The viewbook reads like the printed programme of a school sports day. The six CPE102 houses (Red, Blue, Green, Yellow, Orange, Gray) are flat, full-strength fields that own whole tiles, rows and sheets. Every week, member and project belongs to a house, and that house colour is how the reader recognises it. The team's own house is Green, so Green carries the cover and the midterm project.\n\nDensity is programme-like: a tight bento of square-cornered tiles on 10px gutters, heavy expanded numerals that read as a scoreboard, and plain reading text set calmly between them. Colour is never decoration on top of a neutral layout; the colour is the layout. Ink rules (3px under section heads, 2px between week rows) do the structural work that cards and shadows would do elsewhere.\n\nThe world rejects the dark glass developer portfolio it replaced and the white card grid: no gradients, no glass, no glow, no drop shadows.",
+    "keyCharacteristics": [
+      "Six flat house fields, painted through a single `--house` / `--on-house` pair.",
+      "Square-ish shapes: 4px tiles, 2px tags, no pills.",
+      "Archivo expanded black for numerals, headings and labels; Source Sans 3 for reading.",
+      "Light and dark themes of equal standing; dark keeps the fields vivid on a deep ink ground.",
+      "Structure from ink rules and gutters, never from shadows."
+    ],
+    "rules": [
+      {
+        "name": "The House Pair Rule",
+        "body": "A house colour is never applied alone. Any element painted from a house sets both `--house` and `--on-house` (via an `.h-<house>` class) and uses them together: field and text, or inverted (text-coloured chip on a field) on hover. White text goes on Red, Blue, Green and Gray; dark ink on Yellow and Orange.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Field Rule",
+        "body": "House colours are applied at full strength as solid fills. No tints, gradients, transparency or glow on a house field. The only translucent fills are the photo-caption shade and the pipeline steps inside a house tile.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Ground Rule",
+        "body": "Each theme defines its own house values; dark mode lifts the houses slightly rather than dimming them, so the fields stay as loud on the night ground as on paper. Any new house-coloured text must clear 4.5:1 in both themes, not only in light.",
+        "section": "colors"
+      },
+      {
+        "name": "The Width Means Weight Rule",
+        "body": "Expanded width (112–125%) is reserved for black-weight numerals and headings. Labels and small text drop back to 100% width.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Follows Rule",
+        "body": "Course labels and markers sit after the heading they belong to (beside it in the section head, or at the foot of a tile), never stacked above it as an eyebrow.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Lift Rule",
+        "body": "Nothing rises on hover. State changes repaint (fill, invert, border to ink) or nudge content (an arrow drops 4px, a thumbnail scales to 1.04 inside its clip).",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do paint every house element through an `.h-<house>` class so `--house` and `--on-house` arrive together.",
+      "Do keep house fields flat and at full strength in both themes, with the per-theme house values.",
+      "Do use the 10px gutter for every grid and the 4px / 2px radius pair for tiles and tags.",
+      "Do set numerals and headings in Archivo black at 112–125% width, and reading text in Source Sans 3.",
+      "Do express state by repainting (house fill, inversion, ink border), and give any new archive filter its own house.",
+      "Do place course labels after the heading they belong to."
+    ],
+    "donts": [
+      "Don't use gradients, glass, glow or blurred backdrops on house fields or tiles.",
+      "Don't add box shadows or hover lift; the system is flat.",
+      "Don't use pill-shaped tags or buttons; tags and filters are 2px-square.",
+      "Don't introduce monospace type.",
+      "Don't stack an eyebrow label above a heading.",
+      "Don't put white text on Yellow or Orange, or dark text on Red, Blue, Green or Gray."
+    ]
+  }
+}

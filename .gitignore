@@ -1,3 +1,9 @@
 .vscode/*
+
+# Raw, full-size source files (photos, 4K videos, original slides).
+# The site uses the web-ready copies in media/ instead.
 assets/
-slides/*
+slides/
+
+# Local review captures
+.impeccable/review/

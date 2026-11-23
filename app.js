@@ -1,78 +1,486 @@
-const $ = (s, root=document) => root.querySelector(s);
-const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+// CPE102 viewbook — page behaviour.
+// Content lives in data.js; this file only turns it into HTML.
 
-const collagePaths = [
- ["assets/Week1/w1a.jpg","W01","Week 1"],["assets/Week3/w3b.jpg","W03","Computer Aided Design"],
- ["assets/Week4/IceWeek4(1).jpg","W04","Embedded Systems"],["assets/week8/robot.jpg","W08","Era-One"],["assets/week10/game week10.jpg","W10","GameJam"]
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+// Small helpers ------------------------------------------------------------
+
+function pad(n) {
+  return String(n).padStart(2, "0");
+}
+
+function icon(name) {
+  return `<svg class="icon" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// Runs a DOM update inside a view transition when the browser supports it.
+function withTransition(update) {
+  if (document.startViewTransition && !prefersReducedMotion.matches) {
+    return document.startViewTransition(update);
+  }
+  update();
+  return null;
+}
+
+// Theme toggle -------------------------------------------------------------
+
+function setupThemeToggle() {
+  const button = $(".theme-toggle");
+
+  function label() {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    button.setAttribute("aria-label", `Switch to ${next} theme`);
+  }
+
+  button.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    withTransition(() => {
+      document.documentElement.dataset.theme = next;
+    });
+    try {
+      localStorage.setItem("cpe102-theme", next);
+    } catch (e) {
+      // Storage can be blocked; the theme still switches for this visit.
+    }
+    label();
+  });
+
+  label();
+}
+
+// Week ticker --------------------------------------------------------------
+// A band of every week title, scrolling slowly between the cover and the
+// archive. Each title opens its week. The list is written twice so the
+// loop has no seam; the copy is hidden from screen readers.
+
+function renderTicker() {
+  const items = (hidden) => CPE102.weeks
+    .map((w) => `<li class="h-${w.house}"><a href="#week-${w.week}"${hidden ? ' tabindex="-1"' : ""}><b>W${pad(w.week)}</b>${w.title}</a></li>`)
+    .join("");
+  $("#ticker").innerHTML = `
+    <ul class="ticker-track">${items(false)}</ul>
+    <ul class="ticker-track" aria-hidden="true">${items(true)}</ul>`;
+}
+
+// Week archive -------------------------------------------------------------
+
+// Each filter has its own house colour; choosing one repaints the board.
+const filters = [
+  ["all", "All Weeks (16)", "gray"],
+  ["interactive", "With Interactive Media", "blue"],
+  ["midterm", "Midterm Phase (W1–W9)", "green"],
+  ["final", "Final Phase (W10–W16)", "orange"],
 ];
 
-function fallbackArt(){return `<div class="fallback-art"><i data-lucide="scan-line"></i></div>`}
+let activeFilter = "all";
 
-function renderCollage(){
- $('#photo-collage').innerHTML=collagePaths.map(([src,tag,label])=>`<div class="tile" title="${label}"><img src="${src}" alt="${label}" onerror="this.parentElement.innerHTML='<div class=&quot;fallback-art&quot;><i data-lucide=&quot;component&quot;></i></div><div class=&quot;tile-tag&quot;>${tag}</div>'"><div class="tile-tag">${tag}</div></div>`).join('');
+function matchesFilter(week) {
+  if (activeFilter === "interactive") return Boolean(week.interactive);
+  if (activeFilter === "midterm") return week.week <= 9;
+  if (activeFilter === "final") return week.week >= 10;
+  return true;
 }
 
-const filters=[['all','All Weeks (16)'],['interactive','With Interactive Media'],['midterm','Midterm Phase (W1–W9)'],['final','Final Phase (W10–W16)']];
-let activeFilter='all';
-function renderFilters(){
- $('#filter-tabs').innerHTML=filters.map(([key,label])=>`<button data-filter="${key}" class="${key===activeFilter?'active':''}">${label}</button>`).join('');
- $$('#filter-tabs button').forEach(b=>b.onclick=()=>{activeFilter=b.dataset.filter;renderFilters();renderWeeks()});
+function renderFilters() {
+  $("#filter-tabs").innerHTML = filters
+    .map(([key, label, house]) => `
+      <button type="button" class="h-${house}" data-filter="${key}" aria-pressed="${key === activeFilter}">${label}</button>`)
+    .join("");
+
+  const house = filters.find(([key]) => key === activeFilter)[2];
+  $("#archive").className = `section wrap board-${house}`;
+
+  $$("#filter-tabs button").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      renderFilters();
+      applyFilter();
+      replayAnimation($("#week-list"), "is-refreshing");
+    });
+  });
 }
 
-function shouldShow(w){
- if(activeFilter==='interactive')return w.interactive;
- if(activeFilter==='midterm')return w.week<=9;
- if(activeFilter==='final')return w.week>=10;
- return true;
-}
-function renderWeeks(){
- $('#week-grid').innerHTML=CPE102.weeks.filter(shouldShow).map(w=>{
-  const glow=w.color+'25';
-  return `<article class="week-card" style="--accent:${w.color};--glow:${glow}" data-week="${w.week}">
-  <div class="card-cover">${w.image?`<img src="${w.image}" alt="${w.title}" onerror="this.remove()"><div class="cover-orb"></div>`:fallbackArt().replace('<div class="fallback-art">','<div class="cover-orb"></div><div class="fallback-art">')}
-  <span class="week-pill">WEEK ${String(w.week).padStart(2,'0')}</span><span class="month-pill">${w.date.toUpperCase()} 2026</span>${w.interactive?'<span class="media-pill">INTERACTIVE MEDIA</span>':''}</div>
-  <div class="card-body"><h3>${w.title}</h3><p>${w.preview}</p><div class="tags">${w.tags.slice(0,3).map(t=>`<span>${t}</span>`).join('')}</div><div class="card-link"><span>READ & INSPECT</span><i data-lucide="arrow-up-right"></i></div></div></article>`
- }).join('');
- $$('.week-card').forEach(card=>card.onclick=()=>openModal(+card.dataset.week));
- lucide.createIcons();
+function applyFilter() {
+  $$("#week-list > li").forEach((item) => {
+    const week = CPE102.weeks.find((w) => w.week === Number(item.dataset.week));
+    item.hidden = !matchesFilter(week);
+  });
 }
 
-function savedKey(w,idx){return `cpe102-w${w}-r${idx}`}
-function getChecked(w,idx){return localStorage.getItem(savedKey(w,idx))==='1'}
-function updateProgress(){
- let n=0;CPE102.weeks.forEach(w=>w.review.forEach((_,i)=>{if(getChecked(w.week,i))n++}));
- $('#nav-progress').textContent=`Reviewed: ${n} / 48`; 
+function renderWeekList() {
+  $("#week-list").innerHTML = CPE102.weeks
+    .map((w) => `
+      <li class="h-${w.house}" data-week="${w.week}">
+        <button type="button" class="week-row" data-week="${w.week}" aria-haspopup="dialog">
+          <span class="week-no">${pad(w.week)}<small>WEEK</small></span>
+          <span class="week-main">
+            <span class="week-title">${w.title}</span>
+            <span class="week-date">${w.date.toUpperCase()} 2026${w.interactive ? '<span class="media-mark">INTERACTIVE MEDIA</span>' : ""}</span>
+            <span class="week-preview">${w.preview}</span>
+            <span class="week-tags">${w.tags.map((t) => `<span>${t}</span>`).join("")}</span>
+          </span>
+          <span class="week-open">READ &amp; INSPECT ${icon("arrow-up-right")}</span>
+        </button>
+      </li>`)
+    .join("");
+
+  $$("#week-list .week-row").forEach((row) => {
+    row.addEventListener("click", () => openWeek(Number(row.dataset.week), row));
+  });
 }
 
-function openModal(weekNum){
- const w=CPE102.weeks.find(x=>x.week===weekNum); let embeds='';
- if(w.embeds){embeds=`<div class="embed-grid">${w.embeds.map(e=>{
-  if(e.type==='youtube'||e.type==='canva')return `<iframe loading="lazy" src="${e.src}" title="${e.title}" allowfullscreen></iframe>`;
-  if(e.type==='pdf')return `<iframe src="${e.src}" title="${e.title}"></iframe>`;
-  if(e.type==='game')return `<a class="game-card" href="${e.src}" target="_blank" rel="noopener"><img src="${e.cover}" alt="${e.title}"><strong>${e.title}</strong><span>Launch game ↗</span></a>`;
-  if(e.type==='link')return `<a class="game-card" href="${e.src}" target="_blank" rel="noopener"><i data-lucide="shield-check"></i><strong>${e.title}</strong><span>Open external resource ↗</span></a>`;
- }).join('')}</div>`}
- $('#modal-content').innerHTML=`<header class="modal-header" style="--accent:${w.color}"><span class="week-big">WEEK ${String(w.week).padStart(2,'0')} // ${w.date.toUpperCase()} 2026</span><h2>${w.title}</h2><p>${w.subtitle} • ${w.instructor}</p></header>${embeds}<div class="reflection-grid"><div class="reflection-col"><h3>Engineering Insights</h3><ul>${w.learned.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="reflection-col"><h3>Key Understanding</h3><ul>${w.takeaways.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="reflection-col"><h3>Self-Check Protocol</h3>${w.review.map((x,i)=>`<label class="review-check"><input type="checkbox" data-w="${w.week}" data-i="${i}" ${getChecked(w.week,i)?'checked':''}><span>${x}</span></label>`).join('')}</div></div>`;
- $('#modal').classList.add('open');$('#modal').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
- $$('.review-check input',$('#modal-content')).forEach(input=>input.onchange=()=>{localStorage.setItem(savedKey(+input.dataset.w,+input.dataset.i),input.checked?'1':'0');updateProgress()});
- lucide.createIcons();
+// Week sheet ---------------------------------------------------------------
+
+const sheet = $("#week-sheet");
+let currentWeek = null;
+
+function renderEmbed(embed) {
+  const title = escapeHtml(embed.title);
+  switch (embed.type) {
+    case "youtube":
+    case "canva":
+      return `
+        <figure class="embed">
+          <iframe data-src="${embed.src}" title="${title}" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          <figcaption>${embed.title}</figcaption>
+        </figure>`;
+    case "pdf":
+      return `
+        <a class="doc-link" href="${embed.src}" target="_blank" rel="noopener">
+          ${icon("file")}<span>${embed.title}</span>${icon("arrow-up-right")}
+        </a>`;
+    case "game":
+      return `
+        <a class="game-card" href="${embed.src}" target="_blank" rel="noopener">
+          <img src="${embed.cover}" alt="" loading="lazy" decoding="async">
+          <strong>${embed.title}</strong>
+          <span>Launch game ${icon("external")}</span>
+        </a>`;
+    case "link":
+      return `
+        <a class="doc-link" href="${embed.src}" target="_blank" rel="noopener">
+          ${icon("external")}<span>${embed.title}</span>${icon("arrow-up-right")}
+        </a>`;
+    default:
+      return "";
+  }
 }
-function closeModal(){ $('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true');document.body.style.overflow='' }
 
-function renderProjects(){
- const manual=[['Camera feed','01'],['MediaPipe Hands','02'],['ML posture classifier','03'],['ESP32 command map','04'],['Fail-safe stop','05']];
- const auto=[['Overhead camera','01'],['HSV segmentation','02'],['AprilTag localization','03'],['Target lock','04'],['Sorting path planner','05']];
- function pipeline(nodes){return nodes.map((n,i)=>`${i?'<span class="pipe-arrow">→</span>':''}<div class="pipe-node"><small>${n[1]}</small><br>${n[0]}</div>`).join('')}
- function setMode(mode){$('#mode-panel').innerHTML=`<div class="pipeline">${pipeline(mode==='manual'?manual:auto)}</div>`;$$('#mode-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode))}
- setMode('manual');$$('#mode-tabs button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+function renderSheet(w) {
+  const index = CPE102.weeks.indexOf(w);
+  const prev = CPE102.weeks[index - 1];
+  const next = CPE102.weeks[index + 1];
+  const embeds = w.embeds || [];
+  const frames = embeds.filter((e) => e.type === "youtube" || e.type === "canva");
+  const links = embeds.filter((e) => !(e.type === "youtube" || e.type === "canva"));
 
- const robotImages=['assets/week8/robot.jpg','assets/week8/robot green.jpg','assets/week8/SufferingAndTorture.png','assets/week8/armGripper.png','assets/week8/1790633780933_image.png'];
- $('#robot-gallery').innerHTML=robotImages.map((src,i)=>`<img src="${src}" alt="Era-One robot view ${i+1}" onerror="this.style.display='none'">`).join('');
+  const resources = [];
+  if (w.slides) {
+    const kind = w.slides.endsWith(".pptx") ? "PPTX" : "PDF";
+    resources.push(`
+      <a class="doc-link" href="${w.slides}" target="_blank" rel="noopener">
+        ${icon("file")}<span>Lecture slides (${kind})</span>${icon("arrow-up-right")}
+      </a>`);
+  }
+  (w.docs || []).forEach((doc) => {
+    resources.push(`
+      <a class="doc-link" href="${doc.src}" target="_blank" rel="noopener">
+        ${icon("file")}<span>${doc.title}</span>${icon("arrow-up-right")}
+      </a>`);
+  });
+  links.forEach((e) => resources.push(renderEmbed(e)));
 
- $('#team-grid').innerHTML=CPE102.team.map(m=>`<article class="member" style="--member:${m.color}"><img src="${m.image}" alt="${m.name}" onerror="this.style.opacity='.12'"><div class="member-info"><small>${m.id}</small><h3>${m.name}</h3><p>${m.role}</p></div></article>`).join('');
+  const byline = w.instructor ? `${w.subtitle} • ${w.instructor}` : w.subtitle;
+
+  $("#sheet-content").innerHTML = `
+    <header class="sheet-head h-${w.house}">
+      <div class="sheet-bar">
+        <div class="sheet-nav">
+          <button type="button" data-go="${prev ? prev.week : ""}" ${prev ? "" : "disabled"} aria-label="Previous week">${icon("chevron-left")}</button>
+          <button type="button" data-go="${next ? next.week : ""}" ${next ? "" : "disabled"} aria-label="Next week">${icon("chevron-right")}</button>
+          <button type="button" class="sheet-close" aria-label="Close">${icon("x")}</button>
+        </div>
+      </div>
+      <span class="sheet-no" aria-hidden="true">${pad(w.week)}</span>
+      <h2 id="sheet-title">${w.title}</h2>
+      <p class="sheet-byline">${byline}</p>
+      <p class="sheet-when">WEEK ${pad(w.week)} // ${w.date.toUpperCase()} 2026</p>
+    </header>
+
+    <div class="sheet-body">
+      ${frames.length ? `<div class="embed-grid">${frames.map(renderEmbed).join("")}</div>` : ""}
+
+      ${w.about ? `
+        <div class="about-week">
+          <p>${w.about}</p>
+        </div>` : ""}
+
+      ${w.learned ? `
+        <div class="reflection">
+          <section>
+            <h3>Engineering Insights</h3>
+            <ul>${w.learned.map((x) => `<li>${x}</li>`).join("")}</ul>
+          </section>
+          <section>
+            <h3>Key Understanding</h3>
+            <ul>${w.takeaways.map((x) => `<li>${x}</li>`).join("")}</ul>
+          </section>
+        </div>` : ""}
+
+      ${w.terminal ? renderTerminals(w.terminal) : ""}
+
+      ${resources.length ? `<div class="resources">${resources.join("")}</div>` : ""}
+
+      ${(w.photos || []).length ? `
+        <div class="gallery">
+          ${w.photos.map((src) => `
+            <a href="${src}" target="_blank" rel="noopener">
+              <img src="${src}" alt="Week ${w.week} photo" loading="lazy" decoding="async">
+            </a>`).join("")}
+        </div>` : ""}
+    </div>`;
+
+  $$(".term-copy", sheet).forEach((button) => {
+    button.addEventListener("click", () => copyCommands(button));
+  });
+
+  $$("[data-go]", sheet).forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.go) showWeek(Number(button.dataset.go));
+    });
+  });
+  $(".sheet-close", sheet).addEventListener("click", closeWeek);
 }
 
-renderCollage();renderFilters();renderWeeks();renderProjects();updateProgress();
-$('.modal-close').onclick=closeModal;$('.modal-backdrop').onclick=closeModal;
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-lucide.createIcons();
+// Restarts a CSS animation class on an element.
+function replayAnimation(element, className) {
+  element.classList.remove(className);
+  void element.offsetWidth; // force a reflow so the animation can start again
+  element.classList.add(className);
+}
+
+// Calls done() when the element's own animation ends (or straight away
+// when motion is reduced). A timer backs it up in case the event never fires.
+function afterAnimation(element, done) {
+  if (prefersReducedMotion.matches) {
+    done();
+    return;
+  }
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    element.removeEventListener("animationend", onEnd);
+    done();
+  };
+  const onEnd = (event) => {
+    if (event.target === element) finish();
+  };
+  element.addEventListener("animationend", onEnd);
+  setTimeout(finish, 700);
+}
+
+// Iframes (YouTube, Canva) are heavy, so they only start loading
+// after the sheet has finished animating in.
+function loadFrames() {
+  $$("iframe[data-src]", sheet).forEach((frame) => {
+    frame.src = frame.dataset.src;
+    frame.removeAttribute("data-src");
+  });
+}
+
+function showWeek(weekNumber) {
+  const w = CPE102.weeks.find((x) => x.week === weekNumber);
+  if (!w) return;
+  currentWeek = weekNumber;
+  renderSheet(w);
+  sheet.scrollTop = 0;
+  history.replaceState(null, "", `#week-${weekNumber}`);
+  if (!sheet.classList.contains("is-opening")) loadFrames();
+}
+
+// Opening a week: the sheet rises out of the row that was clicked.
+function openWeek(weekNumber, sourceRow) {
+  sheet.classList.remove("is-closing");
+  sheet.classList.add("is-opening");
+  showWeek(weekNumber);
+
+  // Start the sheet level with the clicked row (kept within ±240px).
+  let fromY = 0;
+  if (sourceRow) {
+    const rect = sourceRow.getBoundingClientRect();
+    fromY = rect.top + rect.height / 2 - window.innerHeight / 2;
+    fromY = Math.max(-240, Math.min(240, fromY));
+  }
+  sheet.style.setProperty("--from-y", `${Math.round(fromY)}px`);
+
+  if (!sheet.open) sheet.showModal();
+  document.body.classList.add("sheet-open");
+
+  afterAnimation(sheet, () => {
+    sheet.classList.remove("is-opening");
+    loadFrames();
+  });
+}
+
+function closeWeek() {
+  if (!sheet.open || sheet.classList.contains("is-closing")) return;
+  const row = $(`#week-list .week-row[data-week="${currentWeek}"]`);
+
+  sheet.classList.remove("is-opening");
+  sheet.classList.add("is-closing");
+  afterAnimation(sheet, () => {
+    sheet.classList.remove("is-closing");
+    sheet.close();
+    if (row) row.focus({ preventScroll: true });
+  });
+}
+
+// Escape closes through closeWeek so it animates too.
+sheet.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeWeek();
+});
+
+sheet.addEventListener("close", () => {
+  document.body.classList.remove("sheet-open");
+  currentWeek = null;
+  if (location.hash.startsWith("#week-")) {
+    history.replaceState(null, "", "#archive");
+  }
+});
+
+// Clicking the dark area outside the sheet closes it.
+sheet.addEventListener("click", (event) => {
+  if (event.target === sheet) closeWeek();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (!sheet.open) return;
+  if (event.key === "ArrowLeft" && currentWeek > 1) showWeek(currentWeek - 1);
+  if (event.key === "ArrowRight" && currentWeek < CPE102.weeks.length) showWeek(currentWeek + 1);
+});
+
+// Terminal snippets ----------------------------------------------------------
+
+// Each session: { title, host, lines: [{ prompt, cmd } | { out } | { err }] }
+function renderTerminals(sessions) {
+  return `
+    <div class="terminals">
+      ${sessions.map((s) => `
+        <figure class="term">
+          <figcaption class="term-bar">
+            <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="term-title">${escapeHtml(s.host)}</span>
+            <button type="button" class="term-copy" aria-label="Copy commands from ${escapeHtml(s.title)}">Copy</button>
+          </figcaption>
+          <p class="term-label">${escapeHtml(s.title)}</p>
+          <pre><code>${s.lines.map(renderTerminalLine).join("\n")}</code></pre>
+        </figure>`).join("")}
+    </div>`;
+}
+
+function renderTerminalLine(line) {
+  if (line.cmd !== undefined) {
+    return `<span class="t-prompt">${escapeHtml(line.prompt)}</span> <span class="t-cmd">${escapeHtml(line.cmd)}</span>`;
+  }
+  if (line.err !== undefined) return `<span class="t-err">${escapeHtml(line.err)}</span>`;
+  return `<span class="t-out">${escapeHtml(line.out)}</span>`;
+}
+
+// Copies only the commands (not prompts or output) of one session.
+function copyCommands(button) {
+  const commands = $$(".t-cmd", button.closest(".term")).map((el) => el.textContent).join("\n");
+  const done = (label) => {
+    button.textContent = label;
+    setTimeout(() => (button.textContent = "Copy"), 1600);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(commands).then(() => done("Copied"), () => done("Copy failed"));
+  } else {
+    done("Copy failed");
+  }
+}
+
+// Projects and team --------------------------------------------------------
+
+function renderProjects() {
+  const manual = [["Camera feed", "01"], ["MediaPipe Hands", "02"], ["ML posture classifier", "03"], ["ESP32 command map", "04"], ["Fail-safe stop", "05"]];
+  const auto = [["Overhead camera", "01"], ["HSV segmentation", "02"], ["AprilTag localization", "03"], ["Target lock", "04"], ["Sorting path planner", "05"]];
+
+  function setMode(mode) {
+    const nodes = mode === "manual" ? manual : auto;
+    $("#mode-panel").innerHTML = nodes
+      .map(([label, num]) => `<li><small>${num}</small>${label}</li>`)
+      .join("");
+    $$("#mode-tabs button").forEach((button) => {
+      button.setAttribute("aria-selected", String(button.dataset.mode === mode));
+    });
+  }
+
+  $$("#mode-tabs button").forEach((button) => {
+    button.addEventListener("click", () => setMode(button.dataset.mode));
+  });
+  setMode("manual");
+
+  const { videos, gallery, report } = CPE102.midterm;
+
+  $("#robot-videos").innerHTML = videos
+    .map((v, i) => `
+      <video controls preload="none" playsinline poster="${v.poster}" aria-label="Era-One competition run ${i + 1}">
+        <source src="${v.src}" type="video/mp4">
+      </video>`)
+    .join("");
+
+  $("#robot-gallery").innerHTML = gallery
+    .map((src, i) => `
+      <a href="${src}" target="_blank" rel="noopener">
+        <img src="${src}" alt="Era-One robot view ${i + 1}" loading="lazy" decoding="async">
+      </a>`)
+    .join("");
+
+  $("#robot-report").href = report;
+}
+
+function renderTeam() {
+  $("#team-grid").innerHTML = CPE102.team
+    .map((m) => `
+      <article class="member h-${m.house}">
+        <img src="${m.image}" alt="${m.name}" loading="lazy" decoding="async">
+        <div class="member-info">
+          <h3>${m.name}</h3>
+          <p>${m.role}</p>
+          <small>${m.id}</small>
+        </div>
+      </article>`)
+    .join("");
+}
+
+// Start --------------------------------------------------------------------
+
+setupThemeToggle();
+renderTicker();
+renderFilters();
+renderWeekList();
+renderProjects();
+renderTeam();
+
+// Deep link: index.html#week-8 opens that week directly.
+function openFromHash() {
+  const linked = location.hash.match(/^#week-(\d+)$/);
+  if (linked && Number(linked[1]) !== currentWeek) openWeek(Number(linked[1]));
+}
+
+window.addEventListener("hashchange", openFromHash);
+openFromHash();
